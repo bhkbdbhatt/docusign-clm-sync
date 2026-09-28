@@ -169,3 +169,4 @@ sf org assign permset --name DocuSign_CLM_Admin
 - **Batch Size Limit:** Max 20 synchronous downloads per UI invocation to prevent Apex HTTP timeout and memory caps. Requests with $> 20$ records automatically queue as asynchronous jobs (`Queueable Apex`).
 - **File Size Ceiling:** Standard maximum payload ceiling per PDF document is enforced at **5MB**. Any file exceeding this limit is flagged in error logs and skipped to prevent heap limit errors.
 - **Missing Doc ID:** If a Quote record lacks a value in `Docusign_DocId__c`, the process logs an error and continues with the remaining selected items.
+-  [![Buy Me A Coffee](https://img.shields.io/badge/Buy%20Me%20A%20Coffee-FFDD00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black)](https://www.buymeacoffee.com/bhargavbhatt)
