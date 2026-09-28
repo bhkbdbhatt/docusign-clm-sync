@@ -1,0 +1,53 @@
+<template>
+    <lightning-quick-action-panel header="DocuSign CLM Bulk Download">
+        <div class="slds-p-around_medium">
+            <template if:true={isProcessing}>
+                <div class="slds-m-bottom_medium">
+                    <p class="slds-text-body_regular slds-m-bottom_xs">
+                        Downloading PDFs from DocuSign CLM... Please do not close this window.
+                    </p>
+                    <lightning-progress-bar value={progressValue} size="large"
+                        variant="circular"></lightning-progress-bar>
+                </div>
+            </template>
+
+            <template if:false={isProcessing}>
+                <template if:true={isFinished}>
+                    <div class="slds-notify slds-notify_alert slds-alert_success slds-m-bottom_medium" role="alert">
+                        <h2>Batch operation complete.</h2>
+                    </div>
+
+                    <p><strong>Total Processed:</strong> {resultSummary.totalProcessed}</p>
+                    <p><strong>Successfully Attached:</strong> {resultSummary.successCount}</p>
+                    <p><strong>Errors:</strong> {resultSummary.errorCount}</p>
+
+                    <template if:true={resultSummary.errorMessages.length}>
+                        <div class="slds-m-top_small error-box">
+                            <p class="slds-text-color_error"><strong>Error Details:</strong></p>
+                            <ul>
+                                <template for:each={resultSummary.errorMessages} for:item="err">
+                                    <li key={err} class="slds-text-color_error">{err}</li>
+                                </template>
+                            </ul>
+                        </div>
+                    </template>
+                </template>
+
+                <template if:false={isFinished}>
+                    <p>You have selected <strong>{selectedIds.length}</strong> Quote(s) for bulk sync.</p>
+                </template>
+            </template>
+        </div>
+
+        <div slot="footer">
+            <template if:false={isFinished}>
+                <lightning-button label="Cancel" onclick={closeAction} disabled={isProcessing}></lightning-button>
+                <lightning-button class="slds-m-left_x-small" variant="brand" label="Start Download"
+                    onclick={handleStartDownload} disabled={isProcessing}></lightning-button>
+            </template>
+            <template if:true={isFinished}>
+                <lightning-button variant="brand" label="Close" onclick={closeAction}></lightning-button>
+            </template>
+        </div>
+    </lightning-quick-action-panel>
+</template>
